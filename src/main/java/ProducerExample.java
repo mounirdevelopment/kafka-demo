@@ -2,6 +2,9 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Properties;
 
 public class ProducerExample {
@@ -14,10 +17,12 @@ public class ProducerExample {
 
         Producer producer = new KafkaProducer<String, String>(kafkaProps);
 
-        int i = 0;
-        while (i < 10000) {
+        Date now = new Date();
 
-            ProducerRecord<String, String> record = new ProducerRecord<>("customers", "222"+i, "yassine"+i);
+        int i = 0;
+        while (i < 100) {
+
+            ProducerRecord<String, String> record = new ProducerRecord("customers", i, now.getTime(), "222"+i, "yassine"+i);
 
             try {
 
@@ -28,5 +33,6 @@ public class ProducerExample {
             }
             i++;
         }
+        producer.flush();
     }
 }
