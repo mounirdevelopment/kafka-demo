@@ -14,14 +14,19 @@ public class ProducerExample {
 
         Producer producer = new KafkaProducer<String, String>(kafkaProps);
 
-        ProducerRecord<String, String> record = new ProducerRecord<>("customers", "0110","yassine");
+        int i = 0;
+        while (i < 10000) {
 
-        try {
+            ProducerRecord<String, String> record = new ProducerRecord<>("customers", "222"+i, "yassine"+i);
 
-            producer.send(record);
+            try {
 
-        } catch (Exception e) {
-            e.printStackTrace();
+                producer.send(record);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            i++;
         }
     }
 }
